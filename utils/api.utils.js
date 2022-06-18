@@ -1,20 +1,20 @@
 const apiSuccessResponse = (data, statusCode = 200) => {
   return {
+    data,
     error: false,
-    statusCode,
-    data
+    statusCode
   }
 }
 
 const apiFailedResponse = (error, statusCode = 500) => {
   return {
     error: true,
-    statusCode,
-    error_details: error
+    error_details: error,
+    statusCode
   }
 }
 
 module.exports = {
-  apiSuccessResponse,
-  apiFailedResponse
+  apiFailedResponse,
+  apiSuccessResponse
 }

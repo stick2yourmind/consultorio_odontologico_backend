@@ -11,6 +11,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 'latest'
   },
+  plugins: [
+    'sort-keys-fix'
+  ],
   rules: {
+    'sort-keys': ['warn', 'asc', { caseSensitive: true, minKeys: 2, natural: true }],
+    'sort-keys-fix/sort-keys-fix': 'warn'
   }
 }

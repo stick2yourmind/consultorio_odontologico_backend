@@ -2,15 +2,17 @@ const { Router } = require('express')
 const {
   makeAppointment,
   cancelAppointment,
-  getAvailableAppointments
+  getAvailableAppointments,
+  createEmptyAppointment
 } = require('../../controllers/appointments.controller')
 
 const router = Router()
 
-// Routes at <HOST>:<PORT>/api/order-cart
 router.get('/', getAvailableAppointments)
 
-router.post('/', makeAppointment)
+router.post('/', createEmptyAppointment)
+
+router.put('/:id', makeAppointment)
 
 router.delete('/:id', cancelAppointment)
 
