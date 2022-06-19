@@ -4,8 +4,8 @@ const path = require('path')
 log4js.configure({
   appenders: {
     console: { type: 'console' },
-    errorFile: { filename: path.join(__dirname, '../log/error.log'), type: 'file' },
-    warningFile: { filename: path.join(__dirname, '../log/warn.log'), type: 'file' }
+    errorFile: { filename: path.join(__dirname, '../../log/error.log'), type: 'file' },
+    warningFile: { filename: path.join(__dirname, '../../log/warn.log'), type: 'file' }
   },
   categories: {
     default: { appenders: ['console'], level: 'trace' },
