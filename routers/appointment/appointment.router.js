@@ -2,13 +2,13 @@ const { Router } = require('express')
 const {
   makeAppointment,
   cancelAppointment,
-  getAvailableAppointments,
+  getAppointments,
   createEmptyAppointment
 } = require('../../controllers/appointments.controller')
 
 const router = Router()
 
-router.get('/', getAvailableAppointments)
+router.get('/', getAppointments)
 
 router.post('/', createEmptyAppointment)
 

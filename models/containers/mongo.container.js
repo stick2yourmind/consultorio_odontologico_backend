@@ -62,7 +62,15 @@ class MongoContainer {
   async getById (id, populateColl = null, fields = null) {
     try {
       let document = {}
+      if (!mongoose.isValidObjectId(id)) {
+        throw new CustomError(
+          STATUS.SERVER_ERROR,
+          'Failed validation\'s id',
+        `MongoDB's ${id} is not a valid ObjectId`
+        )
+      }
       if (populateColl) { document = await this.Model.findOne({ _id: id }, { __v: 0 }).populate(populateColl, fields) } else document = await this.Model.findOne({ _id: id }, { __v: 0 })
+      if (!document) { throw new Error(`MongoDB document with id: ${id} could not be found!`) }
       return document
     } catch (error) {
       throw new CustomError(
@@ -80,6 +88,7 @@ class MongoContainer {
         document = await this.Model.findOne({ email: userEmail }, { __v: 0 })
           .populate(populateColl, fields)
       } else document = await this.Model.findOne({ email: userEmail }, { __v: 0 })
+      if (!document) { throw new Error(`MongoDB document with email: ${userEmail} could not be found!`) }
       return document
     } catch (error) {
       throw new CustomError(
@@ -93,6 +102,7 @@ class MongoContainer {
   async getBy (key, value) {
     try {
       const document = await this.Model.find({ [key]: value }, { __v: 0 })
+      if (!document) { throw new Error(`MongoDB document with key: ${key} value: ${value}could not be found!`) }
       return document
     } catch (error) {
       throw new CustomError(
@@ -119,7 +129,21 @@ class MongoContainer {
 
   async updateById (id, payload) {
     try {
+      if (!mongoose.isValidObjectId(id)) {
+        throw new CustomError(
+          STATUS.SERVER_ERROR,
+          'Failed validation\'s id',
+          `MongoDB's ${id} is not a valid ObjectId`
+        )
+      }
       const updatedDocument = await this.Model.updateOne({ _id: id }, { $set: { ...payload } })
+      if (!updatedDocument.matchedCount) {
+        throw new CustomError(
+          STATUS.SERVER_ERROR,
+          'Document could not been updated',
+          `MongoDB's document with id: ${id} could not been found!`
+        )
+      }
       return updatedDocument
     } catch (error) {
       throw new CustomError(
@@ -132,7 +156,21 @@ class MongoContainer {
 
   async deleteById (id) {
     try {
+      if (!mongoose.isValidObjectId(id)) {
+        throw new CustomError(
+          STATUS.SERVER_ERROR,
+          'Failed validation\'s id',
+          `MongoDB's ${id} is not a valid ObjectId`
+        )
+      }
       const deletedDocument = await this.Model.deleteOne({ _id: id })
+      if (!deletedDocument.deletedCount) {
+        throw new CustomError(
+          STATUS.SERVER_ERROR,
+          'Document could not been deleted',
+          `MongoDB's document with id: ${id} could not been found!`
+        )
+      }
       return deletedDocument
     } catch (error) {
       throw new CustomError(

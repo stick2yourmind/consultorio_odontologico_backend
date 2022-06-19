@@ -1,11 +1,11 @@
 const { apiSuccessResponse } = require('../utils/api.utils')
 const { STATUS } = require('../utils/constants/httpStatus.constant')
-const { createEmptyAppointmentService } = require('../services/appointment/appointment.service')
+const { createEmptyAppointmentService, getAppointmentsService, makeAppointmentService } = require('../services/appointment/appointment.service')
 
-const getAvailableAppointments = async (req, res, next) => {
+const getAppointments = async (req, res, next) => {
   try {
-    const posts = await String('All appointments')
-    const response = apiSuccessResponse(posts, STATUS.OK)
+    const appointments = await getAppointmentsService()
+    const response = apiSuccessResponse(appointments, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -15,8 +15,8 @@ const getAvailableAppointments = async (req, res, next) => {
 const createEmptyAppointment = async (req, res, next) => {
   try {
     const { date } = req.body
-    const posts = await createEmptyAppointmentService(date)
-    const response = apiSuccessResponse(posts, STATUS.OK)
+    const emptyAppointment = await createEmptyAppointmentService(date)
+    const response = apiSuccessResponse(emptyAppointment, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -25,8 +25,10 @@ const createEmptyAppointment = async (req, res, next) => {
 
 const makeAppointment = async (req, res, next) => {
   try {
-    const posts = await String('makeAppointment')
-    const response = apiSuccessResponse(posts, STATUS.OK)
+    const { id } = req.params
+    const { user, professional, specialty } = req.body
+    const appointment = await makeAppointmentService(id, { professional, specialty, user })
+    const response = apiSuccessResponse(appointment, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -35,8 +37,8 @@ const makeAppointment = async (req, res, next) => {
 
 const cancelAppointment = async (req, res, next) => {
   try {
-    const posts = await String('cancelAppointment')
-    const response = apiSuccessResponse(posts, STATUS.OK)
+    const appointment = await String('cancelAppointment')
+    const response = apiSuccessResponse(appointment, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -46,6 +48,6 @@ const cancelAppointment = async (req, res, next) => {
 module.exports = {
   cancelAppointment,
   createEmptyAppointment,
-  getAvailableAppointments,
+  getAppointments,
   makeAppointment
 }
