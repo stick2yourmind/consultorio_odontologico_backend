@@ -4,9 +4,12 @@ const { STATUS } = require('../../utils/constants/httpStatus.constant')
 
 const AppointmentDao = DaosFactory.getDaos('appointment').AppointmentDao
 
-const createEmptyAppointmentService = async (date) => {
+const createEmptyAppointmentService = async (dateArray) => {
   try {
-    await AppointmentDao.create({ date })
+    await Promise.all(dateArray.map(async (date) => {
+      await AppointmentDao.create({ date })
+    })
+    )
   } catch (error) {
     throw new CustomError(
       STATUS.SERVER_ERROR,
