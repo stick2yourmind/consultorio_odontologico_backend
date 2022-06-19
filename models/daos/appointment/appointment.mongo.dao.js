@@ -40,7 +40,7 @@ class MongoAppointmentDao extends MongoContainer {
       const fromDate = startOfTomorrow()
       const toDate = add(fromDate, { months: 1 })
       const documents = await this.Model.find({ date: { $gte: fromDate, $lte: toDate }, reserved: false },
-        { __v: 0, createdAt: 0, reserved: 0, updatedAt: 0, user: 0 }).sort({ date: 1 }).lean()
+        { __v: 0, createdAt: 0, professional: 0, reserved: 0, specialty: 0, updatedAt: 0, user: 0 }).sort({ date: 1 }).lean()
       if (Array.isArray(documents) && !documents.length) {
         throw new CustomError(
           STATUS.SERVER_ERROR,
