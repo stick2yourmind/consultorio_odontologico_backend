@@ -26,8 +26,8 @@ const createEmptyAppointment = async (req, res, next) => {
 const makeAppointment = async (req, res, next) => {
   try {
     const { id } = req.params
-    const { user, professional, specialty } = req.body
-    const appointment = await makeAppointmentService(id, { professional, specialty, user })
+    const { user, professionalId, specialtyId } = req.body
+    const appointment = await makeAppointmentService(id, { professionalId, specialtyId, user })
     const response = apiSuccessResponse(appointment, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {

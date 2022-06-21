@@ -17,8 +17,8 @@ const getProfessional = async (req, res, next) => {
 
 const createProfessional = async (req, res, next) => {
   try {
-    const { img, name, specialty } = req.body
-    const createdProfessional = await createProfessionalService({ img, name, specialty })
+    const { img, name, specialtyId } = req.body
+    const createdProfessional = await createProfessionalService({ img, name, specialtyId })
     const response = apiSuccessResponse(createdProfessional, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
@@ -29,8 +29,8 @@ const createProfessional = async (req, res, next) => {
 const updateProfessional = async (req, res, next) => {
   try {
     const { id } = req.params
-    const { img, name, specialty } = req.body
-    const updatedProfessional = await updateProfessionalService(id, { img, name, specialty })
+    const { img, name, specialtyId } = req.body
+    const updatedProfessional = await updateProfessionalService(id, { img, name, specialtyId })
     const response = apiSuccessResponse(updatedProfessional, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {

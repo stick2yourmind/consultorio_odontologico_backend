@@ -1,11 +1,16 @@
 const { apiSuccessResponse } = require('../utils/api.utils')
 const { STATUS } = require('../utils/constants/httpStatus.constant')
-const { createEmptyAppointmentService, getAppointmentsService, makeAppointmentService } = require('../services/appointment/appointment.service')
+const {
+  createSpecialtyService,
+  deleteSpecialtyService,
+  getSpecialtiesService,
+  updateSpecialtyService
+} = require('../services/specialty/specialty.service')
 
-const getSpecialties = async (req, res, next) => {
+const getSpecialty = async (req, res, next) => {
   try {
-    const appointments = await getAppointmentsService()
-    const response = apiSuccessResponse(appointments, STATUS.OK)
+    const specialties = await getSpecialtiesService()
+    const response = apiSuccessResponse(specialties, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -14,9 +19,9 @@ const getSpecialties = async (req, res, next) => {
 
 const createSpecialty = async (req, res, next) => {
   try {
-    const { date } = req.body
-    const emptyAppointment = await createEmptyAppointmentService(date)
-    const response = apiSuccessResponse(emptyAppointment, STATUS.OK)
+    const { description, img, imgSvg, specialty, summary } = req.body
+    const createdSpecialty = await createSpecialtyService({ description, img, imgSvg, specialty, summary })
+    const response = apiSuccessResponse(createdSpecialty, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -26,9 +31,9 @@ const createSpecialty = async (req, res, next) => {
 const updateSpecialty = async (req, res, next) => {
   try {
     const { id } = req.params
-    const { user, professional, specialty } = req.body
-    const appointment = await makeAppointmentService(id, { professional, specialty, user })
-    const response = apiSuccessResponse(appointment, STATUS.OK)
+    const { description, img, imgSvg, specialty, summary } = req.body
+    const updatedSpecialty = await updateSpecialtyService(id, { description, img, imgSvg, specialty, summary })
+    const response = apiSuccessResponse(updatedSpecialty, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -37,8 +42,9 @@ const updateSpecialty = async (req, res, next) => {
 
 const deleteSpecialty = async (req, res, next) => {
   try {
-    const appointment = await String('cancelAppointment')
-    const response = apiSuccessResponse(appointment, STATUS.OK)
+    const { id } = req.params
+    const deletedSpecialty = await deleteSpecialtyService(id)
+    const response = apiSuccessResponse(deletedSpecialty, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
     next(error)
@@ -48,6 +54,6 @@ const deleteSpecialty = async (req, res, next) => {
 module.exports = {
   createSpecialty,
   deleteSpecialty,
-  getSpecialties,
+  getSpecialty,
   updateSpecialty
 }

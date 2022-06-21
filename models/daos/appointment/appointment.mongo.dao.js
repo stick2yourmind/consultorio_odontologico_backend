@@ -9,9 +9,9 @@ const { STATUS } = require('../../../utils/constants/httpStatus.constant')
 const AppointmentSchema = new Schema({
   date: { required: true, type: Date, unique: true },
   dayName: { required: false, type: String },
-  professional: { default: '', required: false, type: String },
+  professionalId: { ref: 'professionals', required: true, type: Schema.Types.ObjectId },
   reserved: { default: false, required: false, type: Boolean },
-  specialty: { default: '', required: false, type: String },
+  specialtyId: { ref: 'specialties', required: true, type: Schema.Types.ObjectId },
   user: {
     dni: { default: '', required: false, type: Number },
     email: { default: '', required: false, type: String },

@@ -8,8 +8,8 @@ const dayName = [
   'saturday'
 ]
 const isMissingValue = (payload) => {
-  if (!payload.professional) throw new Error("Missing 'professional' value")
-  if (!payload.specialty) throw new Error("Missing 'specialty' value")
+  if (!payload.professionalId) throw new Error("Missing 'professional' value")
+  if (!payload.specialtyId) throw new Error("Missing 'specialty' value")
   if (!payload.user) throw new Error("Missing 'user' value")
   if (!payload.user.dni) throw new Error("Missing 'dni' value")
   if (!payload.user.email) throw new Error("Missing 'email' value")
@@ -18,8 +18,8 @@ const isMissingValue = (payload) => {
   return false
 }
 const emptyAppointment = {
-  professional: '',
-  specialty: '',
+  professionalId: '',
+  specialtyId: '',
   user: {
     dni: null,
     email: '',

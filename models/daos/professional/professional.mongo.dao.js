@@ -4,7 +4,7 @@ const MongoContainer = require('../../containers/mongo.container')
 const ProfessionalSchema = new Schema({
   img: { required: true, type: String },
   name: { required: true, type: String },
-  specialty: { required: true, type: String }
+  specialtyId: { ref: 'specialties', required: true, type: Schema.Types.ObjectId }
 }, { timestamps: true })
 
 class MongoProfessionalDao extends MongoContainer {
