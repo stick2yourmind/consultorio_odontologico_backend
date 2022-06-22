@@ -3,12 +3,15 @@ const {
   createProfessional,
   deleteProfessional,
   getProfessional,
-  updateProfessional
+  updateProfessional,
+  getProfessionalBySpecialty
 } = require('../../controllers/professional.controller')
 
 const router = Router()
 
 router.get('/', getProfessional)
+
+router.get('/:id', getProfessionalBySpecialty)
 
 router.post('/', createProfessional)
 

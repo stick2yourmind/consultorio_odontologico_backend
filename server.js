@@ -1,12 +1,21 @@
 const express = require('express')
 const CONFIG = require('./config/server.config')
 const appRouter = require('./routers/app.router')
+const cors = require('cors')
+const corsOptions = require('./utils/cors/cors.utils')
+const credentials = require('./middleware/cors.middleware')
 
 const app = express()
 
 // App middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+// Handle options credentials check - before CORS!
+app.use(credentials)
+
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions))
 
 // Routes
 app.use('/', appRouter)

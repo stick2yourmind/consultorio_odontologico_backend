@@ -2,12 +2,23 @@ const { apiSuccessResponse } = require('../utils/api.utils')
 const { STATUS } = require('../utils/constants/httpStatus.constant')
 const {
   createProfessionalService, deleteProfessionalService, getProfessionalsService,
-  updateProfessionalService
+  updateProfessionalService, getProfessionalsByCatergoryService
 } = require('../services/professional/professional.service')
 
 const getProfessional = async (req, res, next) => {
   try {
     const professionals = await getProfessionalsService()
+    const response = apiSuccessResponse(professionals, STATUS.OK)
+    return res.status(STATUS.OK).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getProfessionalBySpecialty = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const professionals = await getProfessionalsByCatergoryService(id)
     const response = apiSuccessResponse(professionals, STATUS.OK)
     return res.status(STATUS.OK).json(response)
   } catch (error) {
@@ -53,5 +64,6 @@ module.exports = {
   createProfessional,
   deleteProfessional,
   getProfessional,
+  getProfessionalBySpecialty,
   updateProfessional
 }

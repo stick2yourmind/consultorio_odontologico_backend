@@ -1,8 +1,12 @@
 require('dotenv').config()
 
 const CONFIG = {
-  PORT: process.env.PORT,
-  HOST: process.env.HOST
+  ALLOWED_ORIGINS: [
+    'http://127.0.0.1:5500',
+    'http://localhost:3500',
+    'http://localhost:3000'
+  ],
+  HOST: process.env.HOST,
+  PORT: process.env.PORT
 }
-
 module.exports = CONFIG

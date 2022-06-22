@@ -17,6 +17,19 @@ const createProfessionalService = async (professional) => {
   }
 }
 
+const getProfessionalsByCatergoryService = async (id) => {
+  try {
+    const professionals = await ProfessionalDao.getBy('specialtyId', id)
+    return professionals
+  } catch (error) {
+    throw new CustomError(
+      STATUS.SERVER_ERROR,
+      'Error occurred on service while trying to get all professionals',
+      error
+    )
+  }
+}
+
 const getProfessionalsService = async () => {
   try {
     const professionals = await ProfessionalDao.getAll()
@@ -59,6 +72,7 @@ const deleteProfessionalService = async (id) => {
 module.exports = {
   createProfessionalService,
   deleteProfessionalService,
+  getProfessionalsByCatergoryService,
   getProfessionalsService,
   updateProfessionalService
 }
