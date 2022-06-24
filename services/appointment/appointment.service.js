@@ -54,7 +54,9 @@ const makeAppointmentService = async (id, payload) => {
         professionalImg,
         professionalName
       })
-      transporter.sendMail(mailOptions(payload.user.email, subject, html))
+      await transporter.sendMail(mailOptions(payload.user.email, subject, html), function (err, info) {
+        if (err) { console.log(err) } else console.log(info)
+      })
       return appointmentScheduled
     }
   } catch (error) {

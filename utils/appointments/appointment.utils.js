@@ -29,7 +29,7 @@ const emptyAppointment = {
   }
 }
 const formatDate = (date) => {
-  return format(new Date(date), "MM/dd/yyyy 'a las' hh':'mm 'hs'")
+  return format(new Date(date), "dd/MM/yyyy 'a las' hh':'mm 'hs'")
 }
 
 module.exports = {
