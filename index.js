@@ -4,12 +4,15 @@ const appRouter = require('./routers/app.router')
 const cors = require('cors')
 const corsOptions = require('./utils/cors/cors.utils')
 const credentials = require('./middleware/cors.middleware')
+const path = require('path')
 
 const app = express()
 
 // App middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(express.static(path.resolve(__dirname, './public')))
 
 // Handle options credentials check - before CORS!
 app.use(credentials)

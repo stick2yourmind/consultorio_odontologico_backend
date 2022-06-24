@@ -1,0 +1,42 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='./styles/style.css')
+  title Turno confirmado para #{especialty}
+
+p(style=`font-size: 1rem; color: black;`) Buen día #{clientName}, 
+p(style=`font-size: 1rem; color: black;`) se ha confirmado el turno para #{especialty} y dia: #{dateFormatted}
+
+.card-container(style=`display: grid;
+  grid-template-columns: 24rem;
+  grid-template-rows: 6rem 12rem;
+  border: 0.1rem solid rgb(0,0,0);
+  background-color: rgb(255,255,255);
+  border-color: transparent;
+  border-radius: 2rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-items: center;`)
+  img.img-minimalist-card(style=`width: 10rem;
+    border-radius: 50%;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;` src=`${professionalImg}` alt=`${professionalName}`)
+  h6.title-minimalist-card(style=`font-size: 1.8rem;
+    font-weight: 400;
+    padding: 0;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;`)  #{professionalName}
+
+h6 Para cancelar o modificar el turno comunicarse al 4999-9999-9999

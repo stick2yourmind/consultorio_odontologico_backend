@@ -2,6 +2,10 @@ const DaosFactory = require('../../models/daos/factory.daos')
 const CustomError = require('../../utils/errors/customError')
 const { STATUS } = require('../../utils/constants/httpStatus.constant')
 const { isMissingValue } = require('../../utils/appointments/appointment.utils')
+const pug = require('pug')
+const path = require('path')
+const { formatDate } = require('../../utils/appointments/appointment.utils')
+const { mailOptions, transporter } = require('../../utils/email/email.utils')
 
 const AppointmentDao = DaosFactory.getDaos('appointment').AppointmentDao
 
@@ -38,6 +42,19 @@ const makeAppointmentService = async (id, payload) => {
     const isValid = !isMissingValue(payload)
     if (isValid) {
       const appointmentScheduled = await AppointmentDao.updateById(id, { ...payload, reserved: true })
+      const { date } = await AppointmentDao.getById(id)
+      const { specialtyId: { summary: especialty } } = await AppointmentDao.getById(id, 'specialtyId', 'summary')
+      const { professionalId: { name: professionalName, img: professionalImg } } = await AppointmentDao.getById(id, 'professionalId', ['name', 'img'])
+      const dateFormatted = formatDate(date)
+      const subject = `Turno de ${especialty} confirmado`
+      const html = pug.renderFile(path.join(__dirname, '../../views/email/confirmAppointment.view.pug'), {
+        clientName: payload.user.fullName,
+        dateFormatted,
+        especialty,
+        professionalImg,
+        professionalName
+      })
+      transporter.sendMail(mailOptions(payload.user.email, subject, html))
       return appointmentScheduled
     }
   } catch (error) {

@@ -1,3 +1,4 @@
+const format = require('date-fns/format')
 const dayName = [
   'sunday',
   'monday',
@@ -27,9 +28,13 @@ const emptyAppointment = {
     phone: ''
   }
 }
+const formatDate = (date) => {
+  return format(new Date(date), "MM/dd/yyyy 'a las' hh':'mm 'hs'")
+}
 
 module.exports = {
   dayName,
   emptyAppointment,
+  formatDate,
   isMissingValue
 }
