@@ -31,10 +31,14 @@ const emptyAppointment = {
   }
 }
 const formatDate = (date) => {
-  const dateUTC = new Date(date).toISOString()
-  const newDate = new Date(dateUTC)
-  const dateAr = new Date(newDate.setMinutes(-60 * 3))
-  return `${dateAr.getDate()}/${dateAr.getMonth() + 1}/${dateAr.getFullYear()} a las ${dateAr.getHours()}: ${dateAr.getMinutes()} hs`
+  console.log(date)
+  console.log(new Date(date).toISOString())
+  const dateUTC = new Date(date)
+  const hoursUTC = dateUTC.getUTCHours()
+  const dateAr = new Date(date)
+  dateAr.setUTCHours(hoursUTC - 3)
+  console.log(`${dateAr.getUTCDate()}/${dateAr.getUTCMonth() + 1}/${dateAr.getUTCFullYear()} a las ${dateAr.getUTCHours()}:${dateAr.getUTCMinutes()} hs`)
+  return `${dateAr.getUTCDate()}/${dateAr.getUTCMonth() + 1}/${dateAr.getUTCFullYear()} a las ${dateAr.getUTCHours()}:${dateAr.getUTCMinutes()} hs`
 }
 
 module.exports = {
