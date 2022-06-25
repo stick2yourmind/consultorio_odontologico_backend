@@ -31,8 +31,10 @@ const emptyAppointment = {
   }
 }
 const formatDate = (date) => {
-  const dateAr = new Date(date).toLocaleString('es-AR', { timezone: 'UTC' }).split(':')
-  return `${dateAr[0]}:${dateAr[1]}`
+  const dateUTC = new Date(date).toISOString()
+  const newDate = new Date(dateUTC)
+  const dateAr = new Date(newDate.setMinutes(-60 * 3))
+  return `${dateAr.getDate()}/${dateAr.getMonth() + 1}/${dateAr.getFullYear()} a las ${dateAr.getHours()}: ${dateAr.getMinutes()} hs`
 }
 
 module.exports = {
