@@ -37,8 +37,8 @@ const formatDate = (date) => {
   const hoursUTC = dateUTC.getUTCHours()
   const dateAr = new Date(date)
   dateAr.setUTCHours(hoursUTC - 3)
-  console.log(`${dateAr.getUTCDate()}/${dateAr.getUTCMonth() + 1}/${dateAr.getUTCFullYear()} a las ${dateAr.getUTCHours()}:${dateAr.getUTCMinutes()} hs`)
-  return `${dateAr.getUTCDate()}/${dateAr.getUTCMonth() + 1}/${dateAr.getUTCFullYear()} a las ${dateAr.getUTCHours()}:${dateAr.getUTCMinutes()} hs`
+  console.log(`${dateAr.getUTCDate()}/${dateAr.getUTCMonth() + 1}/${dateAr.getUTCFullYear()} a las ${dateAr.getUTCHours()}:${!dateAr.getUTCMinutes() ? '00' : dateAr.getUTCMinutes()} hs`)
+  return `${dateAr.getUTCDate()}/${dateAr.getUTCMonth() + 1}/${dateAr.getUTCFullYear()} a las ${dateAr.getUTCHours()}:${!dateAr.getUTCMinutes() ? '00' : dateAr.getUTCMinutes()} hs`
 }
 
 module.exports = {
