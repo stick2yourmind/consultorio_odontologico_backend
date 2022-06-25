@@ -1,5 +1,5 @@
-const format = require('date-fns/format')
-const { enUS } = require('date-fns/locale/en-US')
+// const format = require('date-fns/format')
+// const addHours = require('date-fns/addHours')
 
 const dayName = [
   'sunday',
@@ -31,11 +31,8 @@ const emptyAppointment = {
   }
 }
 const formatDate = (date) => {
-  // const dateUtc = new Date(date)
-  // const result = sub(new Date(2017, 5, 15, 15, 29, 20), { hours: 3 })
-  return format(new Date(date), "dd/MM/yyyy 'a las' hh':'mm 'hs'", {
-    locale: enUS
-  })
+  const dateAr = new Date(date).toLocaleString('es-AR', { timezone: 'UTC' }).split(':')
+  return `${dateAr[0]}:${dateAr[1]}`
 }
 
 module.exports = {
