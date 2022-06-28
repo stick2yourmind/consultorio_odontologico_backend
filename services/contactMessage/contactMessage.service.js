@@ -14,7 +14,7 @@ const getContactMessageByIdService = async (id) => {
   } catch (error) {
     throw new CustomError(
       STATUS.SERVER_ERROR,
-      'Error occurred on service while trying to get available appointments',
+      `Error occurred on service while trying to get a contact message by its id:\n${id}`,
       error
     )
   }
@@ -25,14 +25,14 @@ const createContactMessageService = async (payload) => {
     const contactMessageCreated = await ContactMessageDao.create(payload)
     const subject = 'Mensaje de contacto recibido'
     const html = pug.renderFile(path.join(__dirname, '../../views/email/confirmContactMessage.view.pug'), payload)
-    await transporter.sendMail(mailOptions(payload.user.email, subject, html), function (err, info) {
+    await transporter.sendMail(mailOptions(payload.email, subject, html), function (err, info) {
       if (err) { console.log(err) } else console.log(info)
     })
     return contactMessageCreated
   } catch (error) {
     throw new CustomError(
       STATUS.SERVER_ERROR,
-      'Error occurred on service while trying to get available appointments',
+      'Error occurred on service while trying to create a contact message',
       error
     )
   }
@@ -45,7 +45,7 @@ const deleteContactMessageService = async (id) => {
   } catch (error) {
     throw new CustomError(
       STATUS.SERVER_ERROR,
-      'Error occurred on service while trying to get available appointments',
+      `Error occurred on service while trying to delete a contact message by its id:\n${id}`,
       error
     )
   }

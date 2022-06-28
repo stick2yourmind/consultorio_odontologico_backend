@@ -19,11 +19,11 @@ class DaosFactory {
       case 'professional':
         ProfessionalDao = new MongoProfessionalDao()
         break
-      case 'contactPage':
+      case 'contactpage':
         ContactMessageDao = new MongoContactMessageDao()
         break
       default:
-        throw new Error('Invalid data source, please provide one of the following (products | users)')
+        throw new Error(`Invalid data source, please provide one of the following (products | users). Not ${type}`)
     }
     return {
       AppointmentDao,

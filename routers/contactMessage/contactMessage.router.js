@@ -2,12 +2,12 @@ const { Router } = require('express')
 const {
   createContactMessage,
   deleteContactMessage,
-  getContactMessage
+  getContactMessageById
 } = require('../../controllers/contactMessage.controller')
 
 const router = Router()
 
-router.get('/', getContactMessage)
+router.get('/:id', getContactMessageById)
 
 router.post('/', createContactMessage)
 
