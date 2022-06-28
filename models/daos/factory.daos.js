@@ -1,12 +1,14 @@
 const MongoAppointmentDao = require('./appointment/appointment.mongo.dao')
 const MongoSpecialtyDao = require('./specialty/specialty.mongo.dao')
 const MongoProfessionalDao = require('./professional/professional.mongo.dao')
+const MongoContactMessageDao = require('./contactMessage/contactMessage.mongo.dao')
 
 class DaosFactory {
   static getDaos (type) {
     let AppointmentDao
     let SpecialtyDao
     let ProfessionalDao
+    let ContactMessageDao
     switch (type.toLowerCase()) {
       case 'appointment':
         AppointmentDao = new MongoAppointmentDao()
@@ -17,11 +19,15 @@ class DaosFactory {
       case 'professional':
         ProfessionalDao = new MongoProfessionalDao()
         break
+      case 'contactPage':
+        ContactMessageDao = new MongoContactMessageDao()
+        break
       default:
         throw new Error('Invalid data source, please provide one of the following (products | users)')
     }
     return {
       AppointmentDao,
+      ContactMessageDao,
       ProfessionalDao,
       SpecialtyDao
     }
