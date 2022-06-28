@@ -7,6 +7,19 @@ const { mailOptions, transporter } = require('../../utils/email/email.utils')
 
 const ContactMessageDao = DaosFactory.getDaos('contactPage').ContactMessageDao
 
+const getAllContactMessagesService = async () => {
+  try {
+    const contactMessage = await ContactMessageDao.getAll()
+    return contactMessage
+  } catch (error) {
+    throw new CustomError(
+      STATUS.SERVER_ERROR,
+      'Error occurred on service while trying to get all contact messages',
+      error
+    )
+  }
+}
+
 const getContactMessageByIdService = async (id) => {
   try {
     const contactMessage = await ContactMessageDao.getById(id)
@@ -51,4 +64,4 @@ const deleteContactMessageService = async (id) => {
   }
 }
 
-module.exports = { createContactMessageService, deleteContactMessageService, getContactMessageByIdService }
+module.exports = { createContactMessageService, deleteContactMessageService, getAllContactMessagesService, getContactMessageByIdService }

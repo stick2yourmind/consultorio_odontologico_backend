@@ -1,6 +1,16 @@
 const { apiSuccessResponse } = require('../utils/api.utils')
 const { STATUS } = require('../utils/constants/httpStatus.constant')
-const { getContactMessageByIdService, createContactMessageService, deleteContactMessageService } = require('../services/contactMessage/contactMessage.service')
+const { getContactMessageByIdService, createContactMessageService, deleteContactMessageService, getAllContactMessagesService } = require('../services/contactMessage/contactMessage.service')
+
+const getAllContactMessages = async (req, res, next) => {
+  try {
+    const contactMessages = await getAllContactMessagesService()
+    const response = apiSuccessResponse(contactMessages, STATUS.OK)
+    return res.status(STATUS.OK).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
 
 const getContactMessageById = async (req, res, next) => {
   try {
@@ -38,5 +48,6 @@ const deleteContactMessage = async (req, res, next) => {
 module.exports = {
   createContactMessage,
   deleteContactMessage,
+  getAllContactMessages,
   getContactMessageById
 }
